@@ -35,9 +35,37 @@
                 </StackPanel>
             </Border>
 
-            <WrapPanel Background="Green">
+            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
 
-            </WrapPanel>
+
+                <ListBoxItem>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="10">
+                        <StackPanel Orientation="Vertical" Width="235" Height="280">
+                            <Viewbox Height="50" Margin="10,0">
+                                <TextBlock Text="Hamburguesa"></TextBlock>
+                            </Viewbox>
+                            <Image Source="img/burguer.jpg" Stretch="UniformToFill" Height="170" Margin="20,10"></Image>
+                        </StackPanel>
+                    </Border>
+                </ListBoxItem>
+
+                <ListBoxItem>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="10">
+                        <StackPanel Orientation="Vertical" Width="235" Height="280">
+                            <Viewbox Height="50">
+                                <TextBlock Text="Hamburguesa"></TextBlock>
+                            </Viewbox>
+                            <Image Source="img/burguer.jpg" Stretch="UniformToFill" Height="170" Margin="20"></Image>
+                        </StackPanel>
+                    </Border>
+                </ListBoxItem>
+
+            </ListBox>
         </DockPanel>
     </Border>
 </Window>
