@@ -13,6 +13,10 @@ namespace Comida
         public bool Leche { get; set; }
         public bool Sulfitos { get; set; }
 
+        public Plato()
+        {
+        }
+
         public Plato(string nombre, string imagen, string tipo, bool gluten, bool soja, bool leche, bool sulfitos)
         {
             Nombre = nombre;
@@ -22,10 +26,6 @@ namespace Comida
             Soja = soja;
             Leche = leche;
             Sulfitos = sulfitos;
-        }
-
-        public Plato()
-        {
         }
 
         public static ObservableCollection<Plato> GetSamples(string rutaImagenes)

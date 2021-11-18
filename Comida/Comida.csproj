@@ -66,6 +66,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BanderaConverter.cs" />
+    <Compile Include="FuenteConverter.cs" />
     <Compile Include="MainWindowVM.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -103,7 +105,25 @@
     <Resource Include="img\64.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="img\burguer.jpg" />
+    <Resource Include="img\united_states.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\gluten.png" />
+    <Resource Include="img\milk.png" />
+    <Resource Include="img\sulfide.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FotosPlatos\burguer.jpg" />
+    <Resource Include="FotosPlatos\cerdoagridulce.jpg" />
+    <Resource Include="FotosPlatos\dumplings.jpg" />
+    <Resource Include="FotosPlatos\fajitas.jpg" />
+    <Resource Include="FotosPlatos\hotdog.jpg" />
+    <Resource Include="FotosPlatos\tacos.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\china.png" />
+    <Resource Include="img\mexico.png" />
+    <Resource Include="img\soybean.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
