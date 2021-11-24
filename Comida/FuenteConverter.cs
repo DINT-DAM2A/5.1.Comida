@@ -12,16 +12,22 @@ namespace Comida
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            string fuente = "";
+
             switch (value.ToString().ToLower())
             {
                 case "americana":
-                    return "Slim Summer";
+                    fuente = "Slim Summer";
+                    break;
                 case "china":
-                    return "Chinese Wok Food ST";
+                    fuente = "Chinese Wok Food ST";
+                    break;
                 case "mexicana":
-                    return "Taco Salad";
+                    fuente = "Taco Salad";
+                    break;
             }
-            return "Segoe UI";
+
+            return fuente;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -14,23 +14,6 @@
         <local:BanderaConverter x:Key="BanderaConverter"></local:BanderaConverter>
         <local:FuenteConverter x:Key="FuenteConverter"></local:FuenteConverter>
 
-        <!-- Triggers del Formulario -->
-        <Style TargetType="TextBox">
-            <Style.Triggers>
-                <Trigger Property="Text" Value="">
-                    <Setter Property="IsEnabled" Value="False"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style TargetType="CheckBox">
-            <Style.Triggers>
-                <Trigger Property="IsChecked" Value="{x:Null}">
-                    <Setter Property="IsEnabled" Value="False"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
         <!-- Estilos de Imagenes de Alergenos -->
         <Style TargetType="Image" x:Key="ImgAlergenos">
             <Setter Property="Height" Value="25"/>
@@ -88,7 +71,9 @@
                     <Image Source="{Binding Path=Imagen}" Stretch="UniformToFill" Height="170" Margin="20,10"></Image>
 
                     <DockPanel LastChildFill="False" Margin="20,0">
+                        <!--Imagen Bandera-->
                         <Image DockPanel.Dock="Left" Source="{Binding Path=Tipo, Converter={StaticResource BanderaConverter}}" Height="35"></Image>
+                        <!--Imagenes de Alergenos-->
                         <Image Style="{StaticResource ImgSoybean}"></Image>
                         <Image Style="{StaticResource ImgSulfide}"></Image>
                         <Image Style="{StaticResource ImgMilk}"></Image>
@@ -98,6 +83,51 @@
             </Border>
         </DataTemplate>
 
+        <!--Triggers para Desactivar/Activar el Formulario en caso de no tener ningun Plato seleccionado-->
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=HayPlatoSeleccionado, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=HayPlatoSeleccionado, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                    <Setter Property="IsEnabled" Value="True"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=HayPlatoSeleccionado, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=HayPlatoSeleccionado, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                    <Setter Property="IsEnabled" Value="True"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=HayPlatoSeleccionado, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=HayPlatoSeleccionado, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                    <Setter Property="IsEnabled" Value="True"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=HayPlatoSeleccionado, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=HayPlatoSeleccionado, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                    <Setter Property="IsEnabled" Value="True"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
     </Window.Resources>
 
     <!--Diseño Ventana-->
@@ -107,28 +137,29 @@
             <!-- Bloque de la derecha - Formulario-->
             <Border DockPanel.Dock="Right" Background="LightGray" Width="280" Margin="15,0,5,0" Padding="10">
                 <StackPanel Orientation="Vertical">
+                    <!--Nombre Plato-->
                     <TextBlock>Nombre del plato</TextBlock>
-                    <TextBox Text="{Binding Path=PlatoSeleccionado.Nombre}"></TextBox>
-
+                    <TextBox Text="{Binding Path=PlatoSeleccionado.Nombre, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    
+                    <!--Ruta de la foto del plato-->
                     <TextBlock Margin="0,10,0,0">Foto del plato</TextBlock>
-                    <TextBox Text="{Binding Path=PlatoSeleccionado.Imagen}"></TextBox>
+                    <TextBox Text="{Binding Path=PlatoSeleccionado.Imagen, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
+                    <!--Tipo de Comida-->
                     <TextBlock Margin="0,10,0,0" >Tipo de comida</TextBlock>
-                    <ComboBox SelectedItem="{Binding Path=PlatoSeleccionado.Tipo}">
-                        <ListBoxItem>China</ListBoxItem>
-                        <ListBoxItem>Americana</ListBoxItem>
-                        <ListBoxItem>Mexicana</ListBoxItem>
-                    </ComboBox>
+                    <ComboBox ItemsSource="{Binding Path=ListaTiposComida}" SelectedItem="{Binding Path=PlatoSeleccionado.Tipo}"/>
 
+                    <!--Bloque de CheckBox de Alergenos-->
                     <GroupBox Header="Alérgenos" Margin="0,10,0,0" BorderBrush="Black">
                         <UniformGrid>
-                            <CheckBox Content="Leche" Margin="5"></CheckBox>
-                            <CheckBox Content="Soja" Margin="5"></CheckBox>
-                            <CheckBox Content="Gluten" Margin="5"></CheckBox>
-                            <CheckBox Content="Sulfitos" Margin="5"></CheckBox>
+                            <CheckBox Content="Leche" Margin="5" IsChecked="{Binding Path=PlatoSeleccionado.Leche, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                            <CheckBox Content="Soja" Margin="5" IsChecked="{Binding Path=PlatoSeleccionado.Soja, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                            <CheckBox Content="Gluten" Margin="5" IsChecked="{Binding Path=PlatoSeleccionado.Gluten, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                            <CheckBox Content="Sulfitos" Margin="5" IsChecked="{Binding Path=PlatoSeleccionado.Sulfitos, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
                         </UniformGrid>
                     </GroupBox>
 
+                    <!--Boton Limpiar Seleccion-->
                     <Button Content="Limpiar selección" Margin="0,10" Width="110" HorizontalAlignment="Left" Click="Button_Click" ></Button>
 
                 </StackPanel>

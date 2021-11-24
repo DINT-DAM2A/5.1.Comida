@@ -1,37 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Comida
 {
     class MainWindowVM : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public MainWindowVM()
+        {
+            ListaPlatos = Plato.GetSamples("FotosPlatos/");
 
+            listaTiposComida = new ObservableCollection<string>();
+            listaTiposComida.Add("China");
+            listaTiposComida.Add("Americana");
+            listaTiposComida.Add("Mexicana");
+
+            hayPlatoSeleccionado = false;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private ObservableCollection<Plato> listaPlatos;
-
         public ObservableCollection<Plato> ListaPlatos
         {
             get { return listaPlatos; }
             set
             {
                 listaPlatos = value;
-                this.NotifyPropertyChanged("ListaPlatos");
+                NotifyPropertyChanged("ListaPlatos");
             }
         }
 
-        public MainWindowVM()
+        private ObservableCollection<string> listaTiposComida;
+        public ObservableCollection<string> ListaTiposComida
         {
-            ListaPlatos = Plato.GetSamples("FotosPlatos/");
+            get { return listaTiposComida; }
+            set
+            {
+                listaTiposComida = value;
+                NotifyPropertyChanged("ListaTiposComida");
+            }
         }
 
         private Plato platoSeleccionado;
@@ -41,8 +52,26 @@ namespace Comida
             set
             {
                 platoSeleccionado = value;
-                this.NotifyPropertyChanged("PlatoSeleccionado");
+                HayPlatoSeleccionado = true;
+                NotifyPropertyChanged("PlatoSeleccionado");
             }
+        }
+
+        private bool hayPlatoSeleccionado;
+        public bool HayPlatoSeleccionado
+        {
+            get { return hayPlatoSeleccionado; }
+            set
+            { 
+                hayPlatoSeleccionado = value;
+                NotifyPropertyChanged("HayPlatoSeleccionado");
+            }
+        }
+
+        public void LimpiarSeleccion()
+        {
+            PlatoSeleccionado = null;
+            HayPlatoSeleccionado = false;
         }
 
     }

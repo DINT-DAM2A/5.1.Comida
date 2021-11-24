@@ -12,16 +12,22 @@ namespace Comida
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            string ruta = "";
+
             switch (value.ToString().ToLower())
             {
                 case "americana":
-                    return "img/united_states.png";
+                    ruta = "img/united_states.png";
+                    break;
                 case "china":
-                    return "img/china.png";
+                    ruta = "img/china.png";
+                    break;
                 case "mexicana":
-                    return "img/mexico.png";
+                    ruta = "img/mexico.png";
+                    break;
             }
-            return "";
+
+            return ruta;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
